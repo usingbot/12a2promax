@@ -25,6 +25,12 @@ test("Supabase migration, moderation, storage rules and persistence on local Pos
       "utf8",
     ),
   );
+  await db.exec(
+    await readFile(
+      "supabase/migrations/202611190002_upload_quota_500.sql",
+      "utf8",
+    ),
+  );
   const moderator = "11111111-1111-4111-8111-111111111111",
     guest = "22222222-2222-4222-8222-222222222222",
     photo = "33333333-3333-4333-8333-333333333333",
@@ -168,11 +174,11 @@ test("Supabase migration, moderation, storage rules and persistence on local Pos
     "database-backed hourly quota persists and is limited to the service role",
     async () => {
       await role("service_role");
-      for (let i = 0; i < 13; i++)
+      for (let i = 0; i < 501; i++)
         assert.deepEqual(
           (await db.query("select consume_upload_quota('local-key') as ok"))
             .rows,
-          [{ ok: i < 12 }],
+          [{ ok: i < 500 }],
         );
       await db.exec(
         "update upload_limits set window_start=now()-interval '61 minutes'",
