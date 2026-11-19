@@ -34,7 +34,7 @@ Tạo giá trị cuối bằng `openssl rand -hex 32`. Giữ khóa bí mật tro
 
 ### Chạy migration và cấu hình Storage
 
-Trong SQL Editor của **dự án mới**, chạy toàn bộ tệp `supabase/migrations/202611190001_vintage_memories.sql` một lần. Có thể dùng Supabase CLI thay thế.
+Trong SQL Editor của **dự án mới**, chạy lần lượt `supabase/migrations/202611190001_vintage_memories.sql` rồi `supabase/migrations/202611190002_upload_quota_500.sql`, mỗi tệp một lần. Nếu đã chạy migration đầu tiên trước đó, chỉ cần chạy migration thứ hai để tăng hạn mức. Có thể dùng Supabase CLI thay thế.
 
 ```bash
 npx supabase login
@@ -78,7 +78,7 @@ on conflict do nothing;
 
 Chuyển động dùng CSS transform với tham số ổn định và ít lớp ảnh. Trang mở đầu có tối đa 4 khung. Khi bước vào miền ký ức, giới hạn là 12 khung trên màn hình lớn và 4 trên điện thoại. Vòng lặp dừng khi tab bị ẩn, cảnh cuộn khỏi màn hình hoặc đang mở hộp thoại. Chế độ giảm chuyển động giữ khung ảnh đứng yên. Album thật tải theo trang 24 ảnh.
 
-Hạn mức công khai là 12 lần gửi mỗi giờ cho mỗi địa chỉ mạng, được cập nhật nguyên tử trong PostgreSQL. Trên Vercel, máy chủ dùng địa chỉ do hạ tầng Vercel cung cấp. Khi chạy cục bộ hoặc trên máy chủ khác, ứng dụng dùng chung một hạn mức cho đến khi được tích hợp với proxy đáng tin cậy ở nơi triển khai.
+Hạn mức công khai là 500 lần gửi mỗi giờ cho mỗi địa chỉ mạng, được cập nhật nguyên tử trong PostgreSQL. Trên Vercel, máy chủ dùng địa chỉ do hạ tầng Vercel cung cấp. Khi chạy cục bộ hoặc trên máy chủ khác, ứng dụng dùng chung một hạn mức cho đến khi được tích hợp với proxy đáng tin cậy ở nơi triển khai.
 
 Biểu mẫu giữ mã riêng cho từng ảnh khi thử gửi lại. Ảnh được ghi vào bucket riêng trước khi tạo metadata. Khi xóa ảnh hoặc thay tệp giao diện, trigger đưa đường dẫn cũ vào `asset_cleanup` trong cùng giao dịch. Các thao tác xóa và lưu cài đặt thử dọn hàng đợi. Nếu Storage gián đoạn, hàng đợi được giữ cho lần xử lý sau. Phiên bản `updated_at` ngăn hai quản trị viên ghi đè cài đặt của nhau.
 
