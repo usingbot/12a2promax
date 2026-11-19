@@ -1,0 +1,46 @@
+{
+  "name": "12a2-vintage-memories",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts tests/*.test.tsx && node --conditions=react-server --import tsx --test tests/server/*.test.ts",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.2.0",
+    "@fontsource/cormorant-garamond": "^5.2.0",
+    "@fontsource/dancing-script": "^5.2.0",
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.89.0",
+    "file-type": "^21.1.1",
+    "lucide-react": "^0.577.0",
+    "next": "16.4.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "server-only": "^0.0.1",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.16",
+    "@playwright/test": "^1.65.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/jsdom": "^30.0.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "16.4.6",
+    "jsdom": "^31.0.1",
+    "prettier": "^3.10.1",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.3"
+  },
+  "engines": {
+    "node": "24.x"
+  }
+}

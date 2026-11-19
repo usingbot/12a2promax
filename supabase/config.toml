@@ -1,0 +1,7 @@
+project_id = "12a2-vintage-memories"
+
+[auth]
+enable_signup = false
+
+[auth.email]
+enable_signup = false
